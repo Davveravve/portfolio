@@ -11,7 +11,7 @@ const Footer = () => {
           <ProfileInfo>
             <h3>David Rajala</h3>
             <p>
-            Jag har jobbat med olika projekt och uppdrag för både företag och privatpersoner. Med mitt intresse för utveckling och design strävar jag efter att skapa genomtänkta och funktionella lösningar. Jag tar gärna mig an nya utmaningar och hjälper till där det behövs!
+            Som 23-åring har jag utvecklat min passion för programmering sedan 14 års ålder. Efter ett år på spelutvecklingslinje valde jag att fortsätta min digitala resa på egen hand parallellt med mina studier till elektriker. Idag arbetar jag med olika frilansuppdrag för företag och privatpersoner, där jag skapar genomtänkta digitala lösningar. Med erfarenhet inom både utveckling och design utmanar jag ständigt mig själv med nya tekniker och koncept. Jag tar gärna mig an nya digitala utmaningar – alltid med fokus på funktion och estetik.
             </p>
           </ProfileInfo>
         </ProfileSection>

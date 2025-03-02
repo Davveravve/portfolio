@@ -5,10 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/Header.css';
 
 // Array of roles to cycle through
-const roles = ["DESIGNER", "DEVELOPER", "CREATOR"];
+const roles = ["DESIGNER", "UTVECKLARE", "SKAPARE"];
 
 const Header = () => {
   const [roleIndex, setRoleIndex] = useState(0);
+  const [dots, setDots] = useState('');
+  const [increasing, setIncreasing] = useState(true);
   
   // Effect to cycle through roles every 5 seconds
   useEffect(() => {
@@ -18,7 +20,36 @@ const Header = () => {
     
     return () => clearInterval(interval);
   }, []);
+  
+  // Effect for the animated dots
+  useEffect(() => {
+    const dotsInterval = setInterval(() => {
+      setDots(prevDots => {
+        if (increasing) {
+          // Add dots until we reach 4
+          if (prevDots.length < 4) {
+            return prevDots + '.';
+          } else {
+            setIncreasing(false);
+            return prevDots.slice(0, -1);
+          }
+        } else {
+          // Remove dots until we reach 1
+          if (prevDots.length > 1) {
+            return prevDots.slice(0, -1);
+          } else {
+            setIncreasing(true);
+            return prevDots + '.';
+          }
+        }
+      });
+    }, 1000);
+    
+    return () => clearInterval(dotsInterval);
+  }, [increasing]);
 
+  const baseTagline = "Passionerad digital hantverkare under utveckling";
+  
   return (
     <HeaderContainer>
       <HeroSection>
@@ -40,7 +71,10 @@ const Header = () => {
           </AnimatePresence>
         </RoleContainer>
         
-        <Tagline>Building digital experiences that matter</Tagline>
+        <Tagline>
+          {baseTagline}
+          <AnimatedDots>{dots}</AnimatedDots>
+        </Tagline>
         
         {/* Just a subtle hint to scroll */}
         <ScrollIndicator>↓</ScrollIndicator>
@@ -118,13 +152,19 @@ const Role = styled(motion.h2)`
 
 const Tagline = styled.p`
   font-size: 1.2rem;
-  margin-top: 4rem;
-  opacity: 0.2;
+  margin-top: 17rem;
+  opacity: 0.7;
   
   @media (max-width: 480px) {
     font-size: 1rem;
     margin-top: 3rem;
   }
+`;
+
+const AnimatedDots = styled.span`
+  display: inline-block;
+  min-width: 30px;
+  text-align: left;
 `;
 
 const ScrollIndicator = styled.div`
@@ -133,7 +173,7 @@ const ScrollIndicator = styled.div`
   font-size: 1.3rem;
   opacity: 0.3;
   animation: bounce 2s infinite;
-
+ 
   @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
       transform: translateY(0);
