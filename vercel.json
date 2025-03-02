@@ -1,5 +1,7 @@
 {
-    "buildCommand": "CI=false npm run build",
+    "version": 2,
+    "buildCommand": "npm run vercel-build",
     "outputDirectory": "build",
-    "installCommand": "npm install"
+    "installCommand": "npm install",
+    "framework": "create-react-app"
   }
