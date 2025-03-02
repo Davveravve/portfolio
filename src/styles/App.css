@@ -1,0 +1,62 @@
+/* src/styles/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0a0e17;
+  color: white;
+  overflow-x: hidden;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(196, 91, 91, 0.4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 91, 91, 0.6);
+}
+
+/* Better link transitions */
+a {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Make sure images don't break layout */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Add some responsive adjustments */
+@media (max-width: 768px) {
+  .App {
+    padding: 0 1rem;
+  }
+}

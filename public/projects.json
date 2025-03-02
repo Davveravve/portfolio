@@ -1,0 +1,54 @@
+[
+    {
+      "id": "Axento",
+      "info": {
+        "type": "Website",
+        "description": "Axento är en plattform jag utvecklade för att hålla koll på material i min servicebil. Jag kan enkelt registrera vad som finns i bilen och dra av när jag tar något. När jag sedan är på firman kan jag kolla påfyllningslistan för att se vad som behöver fyllas på. Om jag inte hittar en viss sak i bilen kan jag även se exakt var den är placerad via hemsidan.",
+        "technologies": ["Javascript", "React", "Supabase", "Vercel"],
+        "links": [
+          
+          { "title": "Live Demo", "url": "https://www.axento.se" }
+        ]
+      },
+      "images": ["main.jpg", "image1.jpg"]
+    },
+    {
+        "id": "Portfolio",
+        "info": {
+          "type": "Website",
+          "description": "Min personliga portfolio där jag samlar och visar upp mina projekt. Jag byggde den på en helg för att snabbt få upp en plattform där jag kunde presentera mitt arbete.",
+          "technologies": ["Javascript", "React", "Supabase", "Vercel"],
+          "links": [
+            
+            { "title": "Live Demo", "url": "https://www.davidrajala.se" }
+          ]
+        },
+        "images": ["main.jpg", "image1.jpg"]
+    },
+    {
+        "id": "Wardrobe",
+        "info": {
+          "type": "3D",
+          "description": "Ett koncept jag tog fram för att visualisera en garderob jag ville bygga. Jag använde exakta mått för att skapa en detaljerad modell och planera materialval. På så sätt hade jag en tydlig ritning att följa vid själva byggandet.",
+          "technologies": ["Blender", "Unreal Engine"],
+          "links": [
+            
+
+          ]
+        },
+        "images": ["main.jpg", "video.mp4"]
+    },
+    {
+        "id": "Speedit",
+        "info": {
+          "type": "Game",
+          "description": " Ett litet spel jag gjorde i gymnasiet under en rast i ettan. På två timmar satte jag ihop både grafik och kod, och även om det var ett kort projekt var det riktigt roligt att skapa.",
+          "technologies": ["Blender", "Unity", "c#"],
+          "links": [
+            
+            { "title": "RajalaResolution - Itch.io", "url": "https://rajalaresolution.itch.io/speedit" }
+          ]
+        },
+        "images": ["main.jpg", "image1.jpg"]
+    }
+  ]
