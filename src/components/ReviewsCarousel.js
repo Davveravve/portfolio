@@ -163,6 +163,8 @@ const ReviewCard = styled(motion.div)`
   backface-visibility: hidden;
   transform-origin: center;
   user-select: none;
+  opacity: ${props => props.isVisible ? 1 : 0};
+  visibility: ${props => props.isVisible ? 'visible' : 'hidden'};
 
   &::before {
     content: '';
@@ -381,40 +383,14 @@ const ReviewsCarousel = () => {
   // Removed drag and click handlers - using only arrow navigation now
 
   const getCardStyle = (index) => {
-    const diff = index - currentIndex;
-    const totalReviews = reviews.length;
-
-    // Handle wrapping
-    let normalizedDiff = diff;
-    if (diff > totalReviews / 2) {
-      normalizedDiff = diff - totalReviews;
-    } else if (diff < -totalReviews / 2) {
-      normalizedDiff = diff + totalReviews;
-    }
-
-    // Calculate position and styling
-    const translateX = normalizedDiff * 120;
-    const translateZ = Math.abs(normalizedDiff) * -200;
-    const rotateY = normalizedDiff * -15;
-    const opacity = normalizedDiff === 0 ? 1 : Math.max(0.5 - Math.abs(normalizedDiff) * 0.2, 0);
-    const scale = normalizedDiff === 0 ? 1 : 1 - Math.abs(normalizedDiff) * 0.15;
-    const zIndex = 10 - Math.abs(normalizedDiff);
-
-    // Only show 3 cards at a time (current, prev, next)
-    if (Math.abs(normalizedDiff) > 1) {
-      return {
-        opacity: 0,
-        transform: `translateX(${translateX}px) translateZ(-500px) scale(0.5)`,
-        zIndex: 0,
-        pointerEvents: 'none'
-      };
-    }
+    const isActive = index === currentIndex;
 
     return {
-      opacity,
-      transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
-      zIndex,
-      pointerEvents: 'none' // No card interaction needed
+      opacity: isActive ? 1 : 0,
+      visibility: isActive ? 'visible' : 'hidden',
+      transform: 'translateX(0px) translateY(0px) translateZ(0px)',
+      zIndex: isActive ? 10 : 0,
+      pointerEvents: 'none'
     };
   };
 
@@ -531,12 +507,12 @@ const ReviewsCarousel = () => {
                   <ReviewCard
                     key={review.id}
                     style={style}
+                    isVisible={index === currentIndex}
                     initial={{ opacity: 0 }}
                     animate={style}
                     transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 30
+                      duration: 0.3,
+                      ease: "easeInOut"
                     }}
                   >
                     <ReviewHeader>
