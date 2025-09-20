@@ -1,0 +1,210 @@
+:root {
+    --primary-color: #1e293b;
+    --secondary-color: #ef4444;
+    --accent-color: #fecaca;
+    --dark-color: #0f172a;
+    --light-color: #f8fafc;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--dark-color);
+    background: linear-gradient(135deg, rgb(60, 37, 50) 0%, #1e293b 50%, #334155 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  button, input, textarea {
+    font-family: inherit;
+  }
+
+  /* Remove default focus outlines and add custom ones */
+  button:focus,
+  input:focus,
+  textarea:focus,
+  a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  a:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove blue outline on tap/click for mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Allow text selection for input fields */
+  input, textarea {
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  /* Custom Scrollbar with animations */
+  body {
+    overflow-y: overlay; /* Makes scrollbar overlay content */
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    z-index: 999;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--main-color, #ef4444);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(var(--main-color-rgb, 239, 68, 68), 0.5);
+    transform: translateX(40px);
+    opacity: 0;
+  }
+
+  body.scrolling ::-webkit-scrollbar-thumb {
+    transform: translateX(0);
+    opacity: 1;
+    animation: slideInScrollbar 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  body:hover ::-webkit-scrollbar-thumb {
+    transform: translateX(15px);
+    opacity: 0.6;
+  }
+
+  body.scrolling:hover ::-webkit-scrollbar-thumb {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--main-color, #dc2626);
+    background-clip: padding-box;
+    box-shadow: 0 0 20px rgba(var(--main-color-rgb, 239, 68, 68), 0.8);
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+  }
+
+  /* Firefox */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--main-color, #ef4444) transparent;
+  }
+
+  /* Enhanced scrollbar animation on active scrolling */
+  body.scrolling ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--main-color, #ef4444) 0%, var(--main-color, #dc2626) 100%);
+    background-clip: padding-box;
+    box-shadow: 0 0 15px rgba(var(--main-color-rgb, 239, 68, 68), 0.7);
+  }
+
+  @keyframes slideInScrollbar {
+    from {
+      transform: translateX(40px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* Hide scrollbar with animation when not scrolling */
+  body:not(.scrolling):not(:hover) ::-webkit-scrollbar-thumb {
+    animation: slideOutScrollbar 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes slideOutScrollbar {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(40px);
+      opacity: 0;
+    }
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    font-weight: 500;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #5A52D5;
+  }
+  
+  .btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #E3596F;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
