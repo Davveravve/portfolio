@@ -174,18 +174,21 @@ const ProjectLink = styled(motion.a)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, var(--main-color, #ef4444), var(--accent-color, #f97316));
-  color: white;
+  padding: 1rem 2rem;
+  background: ${props => props.variant === 'demo' ?
+    'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%)' :
+    'linear-gradient(135deg, rgb(60, 37, 50) 0%, rgba(60, 37, 50, 0.8) 100%)'};
+  color: ${props => props.variant === 'demo' ? '#1e293b' : 'white'};
+  border: ${props => props.variant === 'demo' ? '2px solid rgba(30, 41, 59, 0.2)' : 'none'};
   text-decoration: none;
-  border-radius: 50px;
+  border-radius: 12px;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 25px rgba(var(--main-color-rgb, 239, 68, 68), 0.4);
+  backdrop-filter: blur(10px);
 
   &:hover {
-    box-shadow: 0 12px 35px rgba(var(--main-color-rgb, 239, 68, 68), 0.6);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -267,11 +270,6 @@ const ThumbnailImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-
-  ${MediaThumbnail}:hover & {
-    transform: scale(1.1);
-  }
 `;
 
 const VideoThumbnail = styled.div`
@@ -479,18 +477,19 @@ const ProjectModal = ({ project, isOpen, onClose, categories = [] }) => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      📁 {t('project.github', 'View Code')}
+                      {t('project.github', 'View Code')}
                     </ProjectLink>
                   )}
                   {project.liveUrl && (
                     <ProjectLink
+                      variant="demo"
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      🚀 {t('project.demo', 'Live Demo')}
+                      {t('project.demo', 'Live Demo')}
                     </ProjectLink>
                   )}
                 </ProjectLinks>

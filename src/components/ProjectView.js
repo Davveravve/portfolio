@@ -139,11 +139,26 @@ const ProjectLinks = styled(motion.div)`
 `;
 
 const ProjectLink = styled(motion.a)`
-  background: linear-gradient(135deg, var(--main-color, #ef4444) 0%, #dc2626 100%);
-  color: white;
+  background: ${props => props.variant === 'demo' ?
+    'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%)' :
+    'linear-gradient(135deg, rgb(60, 37, 50) 0%, rgba(60, 37, 50, 0.8) 100%)'};
+  color: ${props => props.variant === 'demo' ? '#1e293b' : 'white'};
+  border: ${props => props.variant === 'demo' ? '2px solid rgba(30, 41, 59, 0.2)' : 'none'};
   padding: 1rem 2rem;
-  border-radius: 50px;
+  border-radius: 12px;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -214,11 +229,6 @@ const MediaImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-
-  ${ImageContainer}:hover & {
-    transform: scale(1.05);
-  }
 `;
 
 const VideoContainer = styled.div`
@@ -610,18 +620,19 @@ const ProjectView = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                📁 {t('project.github', 'View Code')}
+                {t('project.github', 'View Code')}
               </ProjectLink>
             )}
             {project.liveUrl && (
               <ProjectLink
+                variant="demo"
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                🚀 {t('project.demo', 'Live Demo')}
+                {t('project.demo', 'Live Demo')}
               </ProjectLink>
             )}
           </ProjectLinks>
