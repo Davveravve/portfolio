@@ -130,11 +130,11 @@ const ArrowButton = styled(motion.button)`
     font-size: 1.2rem;
 
     &.prev {
-      left: 30px;
+      left: 10px;
     }
 
     &.next {
-      right: 30px;
+      right: 10px;
     }
 
     svg {
