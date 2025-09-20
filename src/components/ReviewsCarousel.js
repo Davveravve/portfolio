@@ -50,6 +50,7 @@ const CarouselContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     height: 550px;
@@ -65,6 +66,7 @@ const CarouselTrack = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 `;
 
 const ArrowButton = styled(motion.button)`
@@ -125,21 +127,21 @@ const ArrowButton = styled(motion.button)`
   }
 
   @media (max-width: 768px) {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
 
     &.prev {
-      left: 10px;
+      left: 5px;
     }
 
     &.next {
-      right: 10px;
+      right: 5px;
     }
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
   }
 `;
