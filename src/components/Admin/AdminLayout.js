@@ -234,7 +234,7 @@ const AdminLayout = ({ children, title, subtitle }) => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <NavIcon>🏠</NavIcon>
+            <NavIcon></NavIcon>
             Hem
           </HomeButton>
         </HomeSection>
