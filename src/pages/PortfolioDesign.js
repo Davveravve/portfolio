@@ -12,6 +12,7 @@ import AboutModal from '../components/AboutModal';
 import ContactModal from '../components/ContactModal';
 import RippleBackground from '../components/RippleBackground';
 import ReviewsCarousel from '../components/ReviewsCarousel';
+import { colors, gradients, textColors } from '../styles/colors';
 
 // Animations
 const float = keyframes`
@@ -52,7 +53,7 @@ const bounce = keyframes`
 const HomeContainer = styled.div`
   min-height: 100vh;
   overflow-x: hidden;
-  background: #0f172a;
+  background: ${gradients.background};
 
   section + section {
     margin-top: 0;
@@ -64,18 +65,13 @@ const HeroSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${props => props.textColor || 'white'};
+  color: ${textColors.onMedium};
   text-align: center;
   position: relative;
   overflow: hidden;
   margin: 0;
   border: none;
-  background: ${props => {
-    if (props.useGradient) {
-      return `linear-gradient(${props.gradientRotation || 135}deg, ${props.backgroundColor || '#0f172a'}, ${props.gradientColor2 || '#1e293b'})`;
-    }
-    return props.backgroundColor || '#0f172a';
-  }};
+  background: ${gradients.hero};
 `;
 
 const HeroContent = styled(motion.div)`
@@ -92,7 +88,7 @@ const HeroTitle = styled(motion.h1)`
   line-height: 1.1;
   letter-spacing: -0.02em;
   position: relative;
-  color: ${props => props.textColor || 'white'};
+  color: ${textColors.onMedium};
 `;
 
 const AnimatedRole = styled(motion.div)`
@@ -120,6 +116,12 @@ const HeroSubtitle = styled(motion.p)`
   opacity: 0.8;
   line-height: 1.6;
   color: #cbd5e1;
+
+  @media (max-width: 768px) {
+    bottom: 12rem;
+    padding: 0 2rem;
+    text-align: center;
+  }
 `;
 
 const ScrollIndicator = styled(motion.div)`
@@ -138,6 +140,14 @@ const ScrollIndicator = styled(motion.div)`
 
   &:hover {
     color: white;
+  }
+
+  @media (max-width: 768px) {
+    bottom: 6rem;
+  }
+
+  @media (max-height: 700px) {
+    bottom: 4rem;
   }
 `;
 
@@ -185,7 +195,7 @@ const ScrollArrow = styled(motion.div)`
 
 const ProjectsSection = styled.section`
   padding: 6rem 0;
-  background: white;
+  background: linear-gradient(135deg, #F2E0DF 0%, #E3B8B8 100%);
   position: relative;
   margin: 0;
   border: none;
@@ -206,14 +216,14 @@ const SectionTitle = styled(motion.h2)`
   font-weight: 800;
   text-align: center;
   margin-bottom: 1rem;
-  color: var(--main-color, #0f172a);
+  color: #003332;
   letter-spacing: -0.02em;
 `;
 
 const SectionSubtitle = styled(motion.p)`
   text-align: center;
   font-size: 1.25rem;
-  color: #64748b;
+  color: #034C36;
   margin-bottom: 4rem;
   max-width: 600px;
   margin-left: auto;
@@ -233,26 +243,31 @@ const CategoryButton = styled(motion.button)`
   border: none;
   border-radius: 50px;
   background: ${props => props.active
-    ? `linear-gradient(135deg, var(--main-color, #ef4444) 0%, var(--main-color, #dc2626) 100%)`
-    : 'rgba(255, 255, 255, 0.8)'
+    ? `linear-gradient(135deg, #E3B8B8 0%, #034c36 100%)`
+    : 'rgba(189, 205, 207, 0.3)'
   };
-  color: ${props => props.active ? 'white' : '#475569'};
+  color: ${props => props.active ? '#F2E0DF' : '#003332'};
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
   backdrop-filter: blur(10px);
-  border: 2px solid ${props => props.active ? 'transparent' : 'rgba(226, 232, 240, 0.5)'};
+  border: 2px solid ${props => props.active ? 'transparent' : 'rgba(3, 76, 54, 0.2)'};
   box-shadow: ${props => props.active
-    ? '0 8px 32px rgba(var(--main-color-rgb, 239, 68, 68), 0.3)'
+    ? '0 8px 32px rgba(227, 184, 184, 0.3)'
     : '0 4px 20px rgba(0, 0, 0, 0.1)'
   };
 
   &:hover {
     transform: translateY(-2px);
     box-shadow: ${props => props.active
-      ? '0 12px 40px rgba(var(--main-color-rgb, 239, 68, 68), 0.4)'
+      ? '0 12px 40px rgba(227, 184, 184, 0.4)'
       : '0 8px 30px rgba(0, 0, 0, 0.15)'
     };
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -271,8 +286,8 @@ const ProjectsGrid = styled.div`
 
 const AboutSection = styled.section`
   padding: 6rem 0;
-  background: white;
-  color: #0f172a;
+  background: linear-gradient(135deg, #BDCDCF 0%, #003332 100%);
+  color: #F2E0DF;
   position: relative;
   margin: 0;
   border: none;
@@ -304,7 +319,7 @@ const AboutText = styled.div`
   p {
     font-size: 1.125rem;
     line-height: 1.8;
-    color: #0f172a;
+    color: #F2E0DF;
     margin-bottom: 2rem;
   }
 
@@ -455,7 +470,7 @@ const ProfileImage = styled.div`
 
 const ContactSection = styled.section`
   padding: 6rem 0;
-  background: white;
+  background: linear-gradient(135deg, #E3B8B8 0%, #FF8128 100%);
   margin: 0;
   border: none;
 
@@ -467,19 +482,19 @@ const ContactSection = styled.section`
 const EmptyState = styled.div`
   text-align: center;
   padding: 4rem 2rem;
-  color: #64748b;
+  color: #003332;
 
   h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--dark-color);
+    color: #003332;
   }
 
   button {
     margin-top: 1.5rem;
     padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
+    background: linear-gradient(135deg, #034C36 0%, #003332 100%);
+    color: #F2E0DF;
     border: none;
     border-radius: 50px;
     cursor: pointer;
@@ -488,7 +503,7 @@ const EmptyState = styled.div`
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(var(--main-color-rgb, 239, 68, 68), 0.3);
+      box-shadow: 0 8px 32px rgba(3, 76, 54, 0.3);
     }
   }
 `;
@@ -497,7 +512,7 @@ const EmptyState = styled.div`
 // Action Buttons Section
 const ActionButtonsSection = styled.section`
   padding: 6rem 0 8rem 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, #F2E0DF 0%, #E3B8B8 50%, #FF8128 100%);
   position: relative;
 
   &::before {
@@ -507,7 +522,7 @@ const ActionButtonsSection = styled.section`
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(var(--main-color-rgb, 239, 68, 68), 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(3, 76, 54, 0.3), transparent);
   }
 `;
 
@@ -524,16 +539,16 @@ const ActionButtonsGrid = styled.div`
   }
 `;
 
-const ActionButton = styled(motion.button)`
-  background: white;
+const ActionButton = styled.button`
+  background: linear-gradient(135deg, #BDCDCF 0%, rgba(189, 205, 207, 0.8) 100%);
   border: none;
   border-radius: 20px;
   padding: 3rem 2rem;
   cursor: pointer;
   box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
+    0 10px 40px rgba(3, 76, 54, 0.1),
+    0 0 0 1px rgba(3, 76, 54, 0.2);
+  transition: all 0.2s ease;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -543,11 +558,11 @@ const ActionButton = styled(motion.button)`
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg,
-      rgba(var(--main-color-rgb, 239, 68, 68), 0.05) 0%,
-      rgba(var(--main-color-rgb, 239, 68, 68), 0.1) 100%
+      rgba(3, 76, 54, 0.05) 0%,
+      rgba(3, 76, 54, 0.1) 100%
     );
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
   }
 
   &:hover::before {
@@ -556,8 +571,13 @@ const ActionButton = styled(motion.button)`
 
   &:hover {
     box-shadow:
-      0 20px 60px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(var(--main-color-rgb, 239, 68, 68), 0.3);
+      0 20px 60px rgba(3, 76, 54, 0.2),
+      0 0 0 1px rgba(3, 76, 54, 0.4);
+    transform: translateY(-4px);
+  }
+
+  &:active {
+    transform: translateY(-2px);
   }
 `;
 
@@ -568,23 +588,23 @@ const ActionButtonIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--main-color, #ef4444), rgba(var(--main-color-rgb, 239, 68, 68), 0.8));
+  background: linear-gradient(135deg, #034C36 0%, #003332 100%);
   border-radius: 50%;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 
   svg {
     width: 30px;
     height: 30px;
     fill: white;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
   }
 
   ${ActionButton}:hover & {
-    transform: scale(1.1);
-    box-shadow: 0 10px 30px rgba(var(--main-color-rgb, 239, 68, 68), 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(3, 76, 54, 0.4);
 
     svg {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
   }
 `;
@@ -592,7 +612,7 @@ const ActionButtonIcon = styled.div`
 const ActionButtonText = styled.h3`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #003332;
   margin: 0 0 0.5rem 0;
   position: relative;
   z-index: 1;
@@ -600,7 +620,7 @@ const ActionButtonText = styled.h3`
 
 const ActionButtonSubtext = styled.p`
   font-size: 1rem;
-  color: #64748b;
+  color: #034C36;
   margin: 0;
   position: relative;
   z-index: 1;
@@ -609,22 +629,22 @@ const ActionButtonSubtext = styled.p`
 const Portfolio = () => {
   const { t } = useLanguage();
   const [aboutData, setAboutData] = useState(null);
-  const [heroData, setHeroData] = useState(null);
-  const [heroSettings, setHeroSettings] = useState({
+  const heroSettings = {
     heroName: 'David Rajala',
     heroDescription: 'Jag skapar digitala upplevelser som kombinerar kreativitet med funktionalitet.',
     heroRoles: ['DESIGNER', 'UTVECKLARE', 'SKAPARE'],
-    backgroundColor: '#0f172a',
-    useGradient: false,
-    gradientColor2: '#1e293b',
+    backgroundColor: '#F2E0DF',
+    useGradient: true,
+    gradientColor2: '#E3B8B8',
+    gradientColor3: '#FF8128',
     gradientRotation: 135,
     lineColor: '#ffffff',
-    lineOpacity: 0.15,
-    mainColor: '#ef4444',
-    textColor: '#ffffff',
-    roleTextColor: '#ffffff',
+    lineOpacity: 0.2,
+    mainColor: '#034C36',
+    textColor: '#034C36',
+    roleTextColor: '#034C36',
     roleTransitionTime: 3
-  });
+  };
   const [categories, setCategories] = useState([]);
   const [projects, setProjects] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
@@ -701,15 +721,7 @@ const Portfolio = () => {
       const aboutDoc = await getDoc(doc(db, 'content', 'about'));
       const aboutData = aboutDoc.exists() ? aboutDoc.data() : null;
 
-      // Fetch hero data (for customizable texts)
-      const heroDoc = await getDoc(doc(db, 'content', 'hero'));
-      const heroData = heroDoc.exists() ? heroDoc.data() : null;
 
-      // Fetch hero settings
-      const settingsDoc = await getDoc(doc(db, 'settings', 'hero'));
-      if (settingsDoc.exists()) {
-        setHeroSettings(prev => ({ ...prev, ...settingsDoc.data() }));
-      }
 
       // Fetch categories
       const categoriesQuery = query(collection(db, 'categories'), orderBy('displayOrder'));
@@ -763,7 +775,6 @@ const Portfolio = () => {
       });
 
       setAboutData(aboutData);
-      setHeroData(heroData);
       setCategories(categoriesData);
       setProjects(projectsData);
     } catch (err) {
@@ -780,8 +791,11 @@ const Portfolio = () => {
   };
 
   const openProjectModal = (project) => {
-    setSelectedProject(project);
-    setIsProjectModalOpen(true);
+    // Store current scroll position
+    sessionStorage.setItem('homeScrollPosition', window.scrollY.toString());
+
+    // Navigate to project detail page
+    window.location.href = `/project/${project.id}`;
   };
 
   const closeProjectModal = () => {
@@ -807,6 +821,7 @@ const Portfolio = () => {
         backgroundColor={heroSettings.backgroundColor}
         useGradient={heroSettings.useGradient}
         gradientColor2={heroSettings.gradientColor2}
+        gradientColor3={heroSettings.gradientColor3}
         gradientRotation={heroSettings.gradientRotation}
         textColor={heroSettings.textColor}
       >
@@ -814,7 +829,7 @@ const Portfolio = () => {
           mainCircleSize={150}
           mainCircleOpacity={heroSettings.lineOpacity}
           lineColor={heroSettings.lineColor}
-          numCircles={18}
+          numCircles={8}
         />
         <HeroContent
           initial={{ opacity: 0, y: 50 }}
@@ -959,12 +974,6 @@ const Portfolio = () => {
           <ActionButtonsGrid>
             <ActionButton
               onClick={() => setShowAboutModal(true)}
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
             >
               <ActionButtonIcon>
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -977,12 +986,6 @@ const Portfolio = () => {
 
             <ActionButton
               onClick={() => setShowContactModal(true)}
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
             >
               <ActionButtonIcon>
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -479,8 +479,8 @@ const EnhancedProjectForm = () => {
         const fileSizeKB = Math.round(file.size / 1024);
         console.log(`Processing file ${file.name} (${fileSizeKB}KB)`);
 
-        // Use Firebase Storage for videos or large files (>500KB)
-        if (file.type.startsWith('video/') || file.size > 500000) {
+        // Use Firebase Storage for videos or large files (>2GB = 2147483648 bytes)
+        if (file.type.startsWith('video/') || file.size > 2147483648) {
           console.log(`Uploading ${file.name} to Firebase Storage...`);
 
           // Generate a temporary project ID if we're creating a new project

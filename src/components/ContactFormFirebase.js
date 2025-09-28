@@ -94,6 +94,12 @@ const TextArea = styled.textarea`
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: inherit;
   animation: ${props => props.hasError ? 'shake 0.5s ease-in-out' : 'none'};
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &::placeholder {
     color: #9ca3af;

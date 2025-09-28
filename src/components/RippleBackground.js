@@ -34,6 +34,11 @@ const RippleCircle = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 `;
 
 export const RippleBackground = ({

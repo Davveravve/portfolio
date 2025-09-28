@@ -73,93 +73,22 @@
     user-select: text;
   }
 
-  /* Custom Scrollbar with animations */
+  /* Hide scrollbar completely */
   body {
-    overflow-y: overlay; /* Makes scrollbar overlay content */
+    overflow-y: auto;
   }
 
   ::-webkit-scrollbar {
-    width: 12px;
-    z-index: 999;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--main-color, #ef4444);
-    border-radius: 10px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 10px rgba(var(--main-color-rgb, 239, 68, 68), 0.5);
-    transform: translateX(40px);
-    opacity: 0;
-  }
-
-  body.scrolling ::-webkit-scrollbar-thumb {
-    transform: translateX(0);
-    opacity: 1;
-    animation: slideInScrollbar 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  body:hover ::-webkit-scrollbar-thumb {
-    transform: translateX(15px);
-    opacity: 0.6;
-  }
-
-  body.scrolling:hover ::-webkit-scrollbar-thumb {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--main-color, #dc2626);
-    background-clip: padding-box;
-    box-shadow: 0 0 20px rgba(var(--main-color-rgb, 239, 68, 68), 0.8);
-    transform: translateX(0) !important;
-    opacity: 1 !important;
+    display: none;
   }
 
   /* Firefox */
   html {
-    scrollbar-width: thin;
-    scrollbar-color: var(--main-color, #ef4444) transparent;
+    scrollbar-width: none;
   }
 
-  /* Enhanced scrollbar animation on active scrolling */
-  body.scrolling ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--main-color, #ef4444) 0%, var(--main-color, #dc2626) 100%);
-    background-clip: padding-box;
-    box-shadow: 0 0 15px rgba(var(--main-color-rgb, 239, 68, 68), 0.7);
-  }
-
-  @keyframes slideInScrollbar {
-    from {
-      transform: translateX(40px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  /* Hide scrollbar with animation when not scrolling */
-  body:not(.scrolling):not(:hover) ::-webkit-scrollbar-thumb {
-    animation: slideOutScrollbar 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  @keyframes slideOutScrollbar {
-    from {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateX(40px);
-      opacity: 0;
-    }
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
   }
   
   .container {

@@ -1,114 +1,129 @@
 // src/components/ProjectCard.js
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 
-const Card = styled(motion.div)`
-  background-color: white;
-  border-radius: 12px;
+const Card = styled.div`
+  background: linear-gradient(135deg, #F2E0DF 0%, rgba(242, 224, 223, 0.9) 100%);
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 4px 20px rgba(3, 76, 54, 0.08),
+    0 0 0 1px rgba(3, 76, 54, 0.1);
   cursor: pointer;
-  height: 420px;
+  height: auto;
   width: 100%;
-  max-width: 350px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
+  border: none;
+  transition: all 0.2s ease;
 
   &:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    border-color: var(--main-color, #ef4444);
+    box-shadow:
+      0 16px 40px rgba(3, 76, 54, 0.2),
+      0 0 0 1px rgba(3, 76, 54, 0.3);
+    transform: translateY(-8px);
+  }
+
+  @media (max-width: 768px) {
+    max-width: 320px;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
   }
 `;
 
 const ImageContainer = styled.div`
   width: 100%;
+  height: 260px;
   position: relative;
   overflow: hidden;
-  height: 220px;
-  aspect-ratio: 1;
-  background: #f8fafc;
+  background: linear-gradient(135deg, #BDCDCF 0%, #034c36 50%, #003332 100%);
+
+  @media (max-width: 768px) {
+    height: 220px;
+  }
 `;
 
 const ProjectImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
-  
-  ${Card}:hover & {
-    transform: scale(1.05);
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 const ProjectDetails = styled.div`
   padding: 1.5rem;
-  height: 200px;
+  background: transparent;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+  position: relative;
+
+  @media (max-width: 768px) {
+    padding: 1.25rem;
+  }
 `;
 
 const ProjectTitle = styled.h3`
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-  color: #1e293b;
-  font-weight: 600;
+  font-size: 1.375rem;
+  margin: 0;
+  color: #003332;
+  font-weight: 700;
   line-height: 1.3;
 `;
 
-const ProjectCategory = styled.span`
-  font-size: 0.875rem;
-  color: var(--main-color, #ef4444);
+const ProjectCategory = styled.div`
+  background: linear-gradient(135deg, #E3B8B8 0%, #034C36 100%);
+  color: #F2E0DF;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
   font-weight: 600;
-  margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  border: 1px solid rgba(3, 76, 54, 0.2);
+
+  @media (max-width: 768px) {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+  }
 `;
 
 const ProjectExcerpt = styled.p`
-  font-size: 0.9rem;
-  color: #64748b;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #034C36;
+  line-height: 1.5;
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
 
-const ProjectCard = ({ project, onClick }) => {
+const ProjectCard = ({ project, onClick, index }) => {
   // Use first media item as thumbnail, with fallback
   const thumbnailUrl = project.media?.[0]?.url || project.thumbnail || project.image || project.imageUrl || '/placeholder-image.jpg';
 
   return (
     <Card
       onClick={() => onClick && onClick(project)}
-      whileHover={{ y: -5 }}
-      whileTap={{ scale: 0.98 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
     >
       <ImageContainer>
         <ProjectImage
           src={thumbnailUrl}
           alt={project.title || 'Project image'}
           onError={(e) => {
-            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+            e.target.style.display = 'none';
           }}
         />
       </ImageContainer>
       <ProjectDetails>
         <ProjectTitle>{project.title || 'Untitled Project'}</ProjectTitle>
-        <ProjectCategory>{project.category?.name || 'Uncategorized'}</ProjectCategory>
-        <ProjectExcerpt>
-          {project.description?.length > 120
-            ? `${project.description.substring(0, 120)}...`
-            : project.description || 'No description available'}
-        </ProjectExcerpt>
+        <ProjectCategory>{project.category?.name || '3D'}</ProjectCategory>
       </ProjectDetails>
     </Card>
   );

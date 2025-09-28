@@ -43,18 +43,17 @@ const ModalContainer = styled(motion.div)`
   box-shadow:
     0 25px 50px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 255, 255, 0.1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
-    width: 8px;
+    display: none;
   }
 
-  &::-webkit-scrollbar-track {
-    background: #f1f5f9;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--main-color, #ef4444);
-    border-radius: 4px;
+  @media (max-width: 768px) {
+    max-width: 95vw;
+    max-height: 95vh;
+    border-radius: 16px;
   }
 `;
 
@@ -91,9 +90,12 @@ const ModalHeader = styled.div`
   padding: 2rem 2rem 1rem 2rem;
   border-bottom: 1px solid #e2e8f0;
   position: relative;
+  background: linear-gradient(135deg, rgba(0, 212, 170, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+  border-radius: 24px 24px 0 0;
 
   @media (max-width: 768px) {
     padding: 1.5rem 1.5rem 1rem 1.5rem;
+    border-radius: 16px 16px 0 0;
   }
 `;
 
@@ -112,9 +114,13 @@ const ProjectHeader = styled.div`
 const ProjectTitle = styled(motion.h2)`
   font-size: 2rem;
   font-weight: 700;
-  color: var(--main-color, #ef4444);
+  color: var(--main-color, #00d4aa);
   margin: 0 0 0.5rem 0;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const ProjectSubtitle = styled.p`
@@ -215,27 +221,19 @@ const SectionTitle = styled.h3`
 
 const MediaGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
 
   @media (max-width: 768px) {
     display: flex;
     overflow-x: auto;
-    gap: 0.75rem;
+    gap: 1rem;
     padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
-      height: 4px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 2px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: linear-gradient(90deg, var(--main-color, #ef4444), var(--accent-color, #f97316));
-      border-radius: 2px;
+      display: none;
     }
   }
 `;
@@ -346,6 +344,15 @@ const MediaModalContent = styled(motion.div)`
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   position: relative;
+  cursor: zoom-out;
+
+  img, video {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.02);
+  }
 `;
 
 const FullscreenImage = styled.img`
@@ -432,7 +439,9 @@ const ProjectModal = ({ project, isOpen, onClose, categories = [] }) => {
               <CloseButton
                 onClick={onClose}
               >
-                ✕
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </CloseButton>
 
               <ModalHeader>
@@ -554,7 +563,9 @@ const ProjectModal = ({ project, isOpen, onClose, categories = [] }) => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                ✕
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </MediaModalCloseButton>
 
               {selectedMedia.type === 'video' && selectedMedia.url ? (
