@@ -304,15 +304,15 @@ const AboutMeSection = () => {
                 <ProfileStats>
                   <Stat>
                     <strong>{aboutData.yearsExperience}+</strong>
-                    <span>Years</span>
+                    <span>År</span>
                   </Stat>
                   <Stat>
                     <strong>{aboutData.projectsCompleted}+</strong>
-                    <span>Projects</span>
+                    <span>Projekt</span>
                   </Stat>
                   <Stat>
                     <strong>{aboutData.happyClients}+</strong>
-                    <span>Clients</span>
+                    <span>Kunder</span>
                   </Stat>
                 </ProfileStats>
               </ProfileInfo>
@@ -327,17 +327,17 @@ const AboutMeSection = () => {
           >
             <ContentCard>
               <SectionHeader>
-                <p className="subtitle">Get to know me</p>
-                <h2>About Me</h2>
+                <p className="subtitle">Lär känna mig</p>
+                <h2>Om mig</h2>
               </SectionHeader>
 
               <AboutText>
-                <p>{aboutData.description || `I'm a passionate Full Stack Developer based in Stockholm, Sweden. With over ${aboutData.yearsExperience} years of experience in creating digital solutions, I specialize in building modern, scalable web applications that deliver exceptional user experiences.`}</p>
+                <p>{aboutData.description || `Jag är en Full Stack-utvecklare baserad i Göteborg. Med över ${aboutData.yearsExperience} års erfarenhet av att skapa digitala lösningar fokuserar jag på att bygga moderna webbapplikationer som är både funktionella och användarvänliga.`}</p>
               </AboutText>
 
               {aboutData.skills && aboutData.skills.length > 0 && (
                 <SkillsContainer>
-                  <h4 style={{ marginBottom: '1rem', color: theme.colors.text }}>Skills</h4>
+                  <h4 style={{ marginBottom: '1rem', color: theme.colors.text }}>Kompetenser</h4>
                   <SkillsGrid>
                     {aboutData.skills.map((skill, index) => (
                       <SkillBadge key={index}>

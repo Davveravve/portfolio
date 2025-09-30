@@ -706,11 +706,10 @@ const ModernPortfolio = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <NavItem onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</NavItem>
-          <NavItem onClick={() => projectsRef.current?.scrollIntoView({ behavior: 'smooth' })}>Projects</NavItem>
-          <NavItem onClick={() => aboutRef.current?.scrollIntoView({ behavior: 'smooth' })}>About</NavItem>
-          <NavItem onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>Contact</NavItem>
-          <NavButton onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>Let's Talk</NavButton>
+          <NavItem onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Hem</NavItem>
+          <NavItem onClick={() => projectsRef.current?.scrollIntoView({ behavior: 'smooth' })}>Projekt</NavItem>
+          <NavItem onClick={() => aboutRef.current?.scrollIntoView({ behavior: 'smooth' })}>Om mig</NavItem>
+          <NavButton onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>Kontakta mig</NavButton>
         </Nav>
 
         {/* Hero Section */}
@@ -722,7 +721,7 @@ const ModernPortfolio = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <span>Available for projects</span>
+                <span>Tillgänglig för projekt</span>
               </Badge>
 
               <HeroTitle
@@ -738,7 +737,7 @@ const ModernPortfolio = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                Crafting digital experiences that merge creativity with cutting-edge technology
+                Skapar digitala lösningar med fokus på användarvänlighet och modern teknik
               </HeroSubtitle>
 
               <HeroButtons
@@ -751,7 +750,7 @@ const ModernPortfolio = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  View Projects
+                  Se projekt
                 </PrimaryButton>
               </HeroButtons>
             </HeroText>
@@ -759,17 +758,17 @@ const ModernPortfolio = () => {
             <HeroVisual>
               <FloatingCard style={{ y: y1 }}>
                 <CardTitle>Full Stack</CardTitle>
-                <CardText>React & Node.js Expert</CardText>
+                <CardText>React & Node.js</CardText>
               </FloatingCard>
 
               <FloatingCard style={{ y: y2 }}>
-                <CardTitle>Modern Tech</CardTitle>
-                <CardText>Firebase & Cloud Solutions</CardText>
+                <CardTitle>Modern teknik</CardTitle>
+                <CardText>Firebase & molnlösningar</CardText>
               </FloatingCard>
 
               <FloatingCard>
-                <CardTitle>Clean Code</CardTitle>
-                <CardText>Scalable Architecture</CardText>
+                <CardTitle>Design</CardTitle>
+                <CardText>Responsiv & tillgänglig</CardText>
               </FloatingCard>
             </HeroVisual>
           </HeroContent>
@@ -792,7 +791,7 @@ const ModernPortfolio = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Featured Projects
+                Utvalda projekt
               </SectionTitle>
               <SectionSubtitle
                 initial={{ opacity: 0, y: 20 }}
@@ -800,7 +799,7 @@ const ModernPortfolio = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                Showcasing my best work in design and development
+                Ett urval av projekt jag arbetat med
               </SectionSubtitle>
             </SectionHeader>
 

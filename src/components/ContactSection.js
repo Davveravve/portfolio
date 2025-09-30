@@ -376,7 +376,7 @@ const ContactSection = () => {
             letterSpacing: '0.1em',
             marginBottom: '0.5rem'
           }}>
-            Get In Touch
+            Hör av dig
           </p>
           <h2 style={{
             fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
@@ -387,7 +387,7 @@ const ContactSection = () => {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}>
-            Let's Create Together
+            Låt oss samarbeta
           </h2>
           <p style={{
             fontSize: '1.125rem',
@@ -395,7 +395,7 @@ const ContactSection = () => {
             maxWidth: '600px',
             margin: '0 auto',
           }}>
-            Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
+            Har du ett projekt i åtanke? Hör av dig så diskuterar vi hur vi kan förverkliga dina idéer.
           </p>
         </motion.div>
 
@@ -414,7 +414,7 @@ const ContactSection = () => {
                 </svg>
               </IconWrapper>
               <InfoContent>
-                <h4>Email</h4>
+                <h4>Mail</h4>
                 <p><a href="mailto:davidjohanssonrajala@gmail.com">davidjohanssonrajala@gmail.com</a></p>
               </InfoContent>
             </InfoCard>
@@ -432,7 +432,7 @@ const ContactSection = () => {
                 </svg>
               </IconWrapper>
               <InfoContent>
-                <h4>Phone</h4>
+                <h4>Telefon</h4>
                 <p><a href="tel:+46723040296">+46 72 304 02 96</a></p>
               </InfoContent>
             </InfoCard>
@@ -450,45 +450,10 @@ const ContactSection = () => {
                 </svg>
               </IconWrapper>
               <InfoContent>
-                <h4>Location</h4>
-                <p>Gothenburg, Sweden</p>
+                <h4>Plats</h4>
+                <p>Göteborg, Sverige</p>
               </InfoContent>
             </InfoCard>
-
-            <SocialLinks>
-              <SocialLink
-                href="https://github.com"
-                target="_blank"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <i className="fab fa-github"></i>
-              </SocialLink>
-              <SocialLink
-                href="https://linkedin.com"
-                target="_blank"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <i className="fab fa-linkedin"></i>
-              </SocialLink>
-              <SocialLink
-                href="https://twitter.com"
-                target="_blank"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <i className="fab fa-twitter"></i>
-              </SocialLink>
-              <SocialLink
-                href="https://dribbble.com"
-                target="_blank"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <i className="fab fa-dribbble"></i>
-              </SocialLink>
-            </SocialLinks>
           </ContactInfo>
 
           <FormContainer
@@ -499,39 +464,39 @@ const ContactSection = () => {
           >
             <Form onSubmit={handleSubmit}>
               <FormGroup>
-                <Label htmlFor="name">Your Name</Label>
+                <Label htmlFor="name">Namn</Label>
                 <Input
                   type="text"
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="John Doe"
+                  placeholder="För & Efternamn"
                   required
                 />
               </FormGroup>
 
               <FormGroup>
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">Mail</Label>
                 <Input
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="john@example.com"
+                  placeholder="namn@example.com"
                   required
                 />
               </FormGroup>
 
               <FormGroup>
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="message">Meddelande</Label>
                 <Textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell me about your project..."
+                  placeholder="Berätta om ditt projekt..."
                   required
                 />
               </FormGroup>
@@ -542,7 +507,7 @@ const ContactSection = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? 'Skickar...' : 'Skicka meddelande'}
               </SubmitButton>
 
               {isSuccess && (
@@ -551,7 +516,7 @@ const ContactSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
-                  ✅ Message sent successfully! I'll get back to you soon.
+                  ✅ Meddelandet har skickats! Jag återkommer så snart som möjligt.
                 </SuccessMessage>
               )}
             </Form>
