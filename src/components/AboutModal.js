@@ -123,8 +123,9 @@ const ProfileImage = styled.img`
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--main-color, #ef4444);
-  box-shadow: 0 10px 30px rgba(var(--main-color-rgb, 239, 68, 68), 0.3);
+  border: 4px solid #6366f1;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+  background: #f0f0f0;
 `;
 
 const ProfileInfo = styled.div`
@@ -185,14 +186,11 @@ const SkillTag = styled.div`
 const AboutModal = ({ onClose }) => {
   const { t, currentLanguage } = useLanguage();
   const [aboutData, setAboutData] = useState({
-    title_sv: t('about.title'),
-    title_en: 'About Me',
-    subtitle_sv: t('about.subtitle'),
-    subtitle_en: 'Developer & Designer with passion for innovation',
-    description_sv: 'Jag är en passionerad utvecklare med fokus på att skapa användarvänliga och visuellt tilltalande digitala upplevelser.',
-    description_en: 'I am a passionate developer focused on creating user-friendly and visually appealing digital experiences.',
-    skills: ['React', 'JavaScript', 'CSS', 'Node.js'],
-    image: null
+    name: 'David Rajala',
+    title: 'Full Stack Developer',
+    description: 'Jag är en passionerad utvecklare med fokus på att skapa användarvänliga och visuellt tilltalande digitala upplevelser.',
+    skills: [],
+    profileImage: null
   });
   const [loading, setLoading] = useState(true);
 
@@ -201,14 +199,16 @@ const AboutModal = ({ onClose }) => {
   }, []);
 
   const fetchAboutData = async () => {
+    setLoading(true);
     try {
-      const aboutDoc = await getDoc(doc(db, 'content', 'about'));
+      const aboutDoc = await getDoc(doc(db, 'about', 'info'));
       if (aboutDoc.exists()) {
         const data = aboutDoc.data();
-        setAboutData(prev => ({
-          ...prev,
-          ...data
-        }));
+        console.log('About Modal - Fetched data:', data);
+        console.log('About Modal - Profile image URL:', data.profileImage);
+        setAboutData(data);
+      } else {
+        console.log('About Modal - No document found');
       }
     } catch (error) {
       console.error('Error fetching about data:', error);
@@ -240,8 +240,8 @@ const AboutModal = ({ onClose }) => {
           >
             ×
           </CloseButton>
-          <ModalTitle>{currentLanguage === 'sv' ? (aboutData.title_sv || t('about.title')) : (aboutData.title_en || 'About Me')}</ModalTitle>
-          <ModalSubtitle>{currentLanguage === 'sv' ? (aboutData.subtitle_sv || t('about.subtitle')) : (aboutData.subtitle_en || 'Developer & Designer with passion for innovation')}</ModalSubtitle>
+          <ModalTitle>{t('about.title')}</ModalTitle>
+          <ModalSubtitle>{aboutData.title || 'Full Stack Developer'}</ModalSubtitle>
         </ModalHeader>
 
         <ModalBody>
@@ -253,19 +253,22 @@ const AboutModal = ({ onClose }) => {
             <>
               <ProfileSection>
                 <ProfileImageContainer>
+                  {console.log('Rendering profile image, URL:', aboutData.profileImage)}
+                  {console.log('Full aboutData:', aboutData)}
                   <ProfileImage
-                    src={aboutData.image || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIiByeD0iNzUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJvZmlsZTwvdGV4dD48L3N2Zz4='}
-                    alt="David Rajala"
+                    src={aboutData.profileImage || 'https://via.placeholder.com/150/6366f1/ffffff?text=DR'}
+                    alt="Profile"
                     onError={(e) => {
-                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIiByeD0iNzUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJvZmlsZTwvdGV4dD48L3N2Zz4=';
+                      console.error('Image failed to load, URL was:', e.target.src);
+                      e.target.src = 'https://via.placeholder.com/150/6366f1/ffffff?text=DR';
                     }}
-                  />
+                    onLoad={() => console.log('Image loaded successfully from:', aboutData.profileImage)}
                 </ProfileImageContainer>
                 <ProfileInfo>
-                  <ProfileName>David Rajala</ProfileName>
-                  <ProfileRole>{currentLanguage === 'sv' ? (aboutData.subtitle_sv || t('about.subtitle')) : (aboutData.subtitle_en || 'Developer & Designer')}</ProfileRole>
+                  <ProfileName>{aboutData.name || 'David Rajala'}</ProfileName>
+                  <ProfileRole>{aboutData.title || 'Full Stack Developer'}</ProfileRole>
                   <ProfileDescription>
-                    {currentLanguage === 'sv' ? aboutData.description_sv : aboutData.description_en}
+                    {aboutData.description || 'Passionerad utvecklare med fokus på moderna webbapplikationer.'}
                   </ProfileDescription>
                 </ProfileInfo>
               </ProfileSection>

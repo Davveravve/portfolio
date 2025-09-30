@@ -84,28 +84,20 @@ const ProfileImage = styled.div`
   background: ${theme.gradients.primary};
   position: relative;
   overflow: hidden;
+  padding: 4px;
 
   @media (max-width: ${theme.breakpoints.sm}) {
     width: 150px;
     height: 150px;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border-radius: ${theme.radius.xl};
-    background: ${theme.colors.background};
-  }
-
   img {
-    position: absolute;
-    inset: 8px;
-    width: calc(100% - 16px);
-    height: calc(100% - 16px);
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: ${theme.radius.lg};
-    z-index: 1;
+    display: block;
+    background: ${theme.colors.background};
   }
 `;
 
@@ -304,7 +296,7 @@ const AboutMeSection = () => {
           >
             <ProfileCard>
               <ProfileImage>
-                {/* Add your profile image here */}
+                {aboutData.profileImage && <img src={aboutData.profileImage} alt={aboutData.name} />}
               </ProfileImage>
               <ProfileInfo>
                 <h3>{aboutData.name}</h3>

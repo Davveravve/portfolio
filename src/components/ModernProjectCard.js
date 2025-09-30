@@ -5,13 +5,15 @@ import { theme, glassMorphism } from '../styles/theme';
 
 const CardContainer = styled(motion.div)`
   position: relative;
-  perspective: 1000px;
+  perspective: 1500px;
   cursor: pointer;
   width: 100%;
+  transform-style: preserve-3d;
 
   @media (max-width: ${theme.breakpoints.sm}) {
     max-width: 400px;
     margin: 0 auto;
+    perspective: 1000px;
   }
 
   @media (max-width: 480px) {
@@ -28,6 +30,9 @@ const Card = styled(motion.div)`
   transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
   position: relative;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: ${theme.breakpoints.md}) {
     transform-style: none;
@@ -56,7 +61,15 @@ const Card = styled(motion.div)`
   }
 
   &:hover {
-    transform: rotateY(5deg) rotateX(-5deg) translateZ(20px);
+    transform: ${props => {
+      if (props.$tiltDirection === 'top') {
+        return 'rotateX(8deg) rotateY(3deg) translateZ(20px)';
+      } else if (props.$tiltDirection === 'bottom') {
+        return 'rotateX(-8deg) rotateY(-3deg) translateZ(20px)';
+      } else {
+        return 'rotateY(5deg) translateZ(20px)';
+      }
+    }};
     box-shadow:
       0 25px 50px -12px rgba(0, 0, 0, 0.5),
       0 0 50px rgba(99, 102, 241, 0.2);
@@ -74,7 +87,7 @@ const Card = styled(motion.div)`
       transform: translateY(0);
     }
 
-    .tags {
+    .tag {
       transform: translateX(0);
       opacity: 1;
     }
@@ -150,6 +163,9 @@ const ViewButton = styled(motion.button)`
 const Content = styled.div`
   padding: 1.5rem;
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: ${theme.breakpoints.sm}) {
     padding: 1.1rem;
@@ -180,10 +196,11 @@ const Tag = styled.span`
   border: 1px solid rgba(99, 102, 241, 0.3);
   font-weight: 500;
   letter-spacing: 0.02em;
+  white-space: nowrap;
   transform: translateX(-100%);
   opacity: 0;
   transition: all 0.4s ease;
-  transition-delay: calc(var(--index) * 0.05s);
+  transition-delay: calc(var(--index) * 0.1s);
 `;
 
 const Title = styled.h3`
@@ -216,16 +233,25 @@ const Description = styled.p`
   line-height: 1.6;
   margin-bottom: 1.25rem;
   font-size: 0.95rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 4.5rem;
 
   @media (max-width: ${theme.breakpoints.sm}) {
     font-size: 0.85rem;
     margin-bottom: 0.9rem;
     line-height: 1.5;
+    -webkit-line-clamp: 3;
+    min-height: 3.8rem;
   }
 
   @media (max-width: 480px) {
     font-size: 0.8rem;
     margin-bottom: 0.8rem;
+    min-height: 3.6rem;
   }
 `;
 
@@ -233,6 +259,7 @@ const Footer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
 `;
 
 const ProjectType = styled.span`
@@ -284,7 +311,7 @@ const GlowOrb = styled.div`
   }
 `;
 
-const ModernProjectCard = ({ project, onClick }) => {
+const ModernProjectCard = ({ project, onClick, tiltDirection = 'center' }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -294,7 +321,7 @@ const ModernProjectCard = ({ project, onClick }) => {
       onClick={() => onClick && onClick(project)}
       whileHover={{ z: 50 }}
     >
-      <Card>
+      <Card $tiltDirection={tiltDirection}>
         <GlowOrb />
 
         <ImageContainer>
@@ -315,10 +342,10 @@ const ModernProjectCard = ({ project, onClick }) => {
 
         <Content>
           <TagsContainer>
-            {project.tags?.map((tag, index) => (
+            {project.tags?.slice(0, 3).map((tag, index) => (
               <Tag
                 key={tag}
-                className="tags"
+                className="tag"
                 style={{ '--index': index }}
               >
                 {tag}
@@ -330,7 +357,7 @@ const ModernProjectCard = ({ project, onClick }) => {
           <Description>{project.description}</Description>
 
           <Footer>
-            <ProjectType>{project.type || 'Web Design'}</ProjectType>
+            <ProjectType>{project.categoryName || 'Web Design'}</ProjectType>
             <ArrowIcon
               animate={{ x: isHovered ? 5 : 0 }}
             >

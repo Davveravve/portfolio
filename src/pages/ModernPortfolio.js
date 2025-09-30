@@ -163,22 +163,6 @@ const NavItem = styled(motion.button)`
   &:hover {
     color: ${theme.colors.text};
   }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: ${theme.gradients.primary};
-    transform: scaleX(0);
-    transition: transform ${theme.transitions.normal};
-  }
-
-  &:hover::after {
-    transform: scaleX(1);
-  }
 `;
 
 const NavButton = styled(motion.button)`
@@ -264,9 +248,10 @@ const Badge = styled(motion.div)`
     content: '';
     width: 8px;
     height: 8px;
-    background: #10b981;
+    background: #00ff88;
     border-radius: 50%;
     animation: ${glow} 2s ease-in-out infinite;
+    box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
   }
 
   span {
@@ -478,10 +463,13 @@ const SectionSubtitle = styled(motion.p)`
 
 const ProjectsGrid = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: ${theme.spacing['2xl']};
-  justify-items: center;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @media (max-width: ${theme.breakpoints.md}) {
     grid-template-columns: 1fr;
@@ -492,15 +480,10 @@ const ProjectsGrid = styled(motion.div)`
   @media (max-width: ${theme.breakpoints.sm}) {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 0;
+    padding: 0 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  @media (max-width: ${theme.breakpoints.sm}) {
-    grid-template-columns: 1fr;
-    padding: 0 0.5rem;
   }
 `;
 
@@ -662,6 +645,13 @@ const ModernPortfolio = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        // First fetch categories
+        const categoriesSnapshot = await getDocs(collection(db, 'categories'));
+        const categoriesMap = {};
+        categoriesSnapshot.docs.forEach(doc => {
+          categoriesMap[doc.id] = doc.data().name;
+        });
+
         const projectsQuery = query(collection(db, 'projects'), orderBy('displayOrder', 'desc'));
         const projectsSnapshot = await getDocs(projectsQuery);
         const projectsData = projectsSnapshot.docs.map(doc => ({
@@ -669,6 +659,7 @@ const ModernPortfolio = () => {
           ...doc.data(),
           tags: doc.data().technologies || ['React', 'Node.js'],
           image: doc.data().media?.[0]?.url || doc.data().thumbnail || '',
+          categoryName: categoriesMap[doc.data().categoryId] || 'Web Design',
         }));
         setProjects(projectsData.slice(0, 6)); // Show only 6 projects
       } catch (error) {
@@ -826,20 +817,28 @@ const ModernPortfolio = () => {
                   ))}
                 </>
               ) : (
-                projects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <ModernProjectCard
-                      project={project}
-                      onClick={() => window.location.href = `/project/${project.id}`}
-                    />
-                  </motion.div>
-                ))
+                projects.map((project, index) => {
+                  // Calculate row position (assuming 3 columns on desktop)
+                  const row = Math.floor(index / 3);
+                  const isTopRow = row === 0;
+                  const isBottomRow = row === Math.ceil(projects.length / 3) - 1;
+
+                  return (
+                    <motion.div
+                      key={project.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <ModernProjectCard
+                        project={project}
+                        tiltDirection={isTopRow ? 'top' : isBottomRow ? 'bottom' : 'center'}
+                        onClick={() => window.location.href = `/project/${project.id}`}
+                      />
+                    </motion.div>
+                  );
+                })
               )}
             </ProjectsGrid>
           </Container>
